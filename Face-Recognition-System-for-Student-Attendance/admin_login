@@ -1,0 +1,42 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# ✅ Hardcoded Admin Credentials (No Database Needed)
+FIXED_ADMIN = {
+    "username": "Ameer",
+    "password": "2022503105",  # Plain text (not recommended for real apps)
+    "role": "administrator",
+    "email": "mohdameer01a@gmail.com"
+}
+
+# ✅ Login function (Without Database)
+def login_admin(username, password):
+    if username == FIXED_ADMIN["username"] and password == FIXED_ADMIN["password"]:
+        return {"message": "✅ Login successful!", "status": "success"}
+    elif username == FIXED_ADMIN["username"]:
+        return {"message": "❌ Incorrect password.", "status": "error"}
+    else:
+        return {"message": "❌ Username not registered.", "status": "error"}
+
+# ✅ API Route for Admin Login
+@app.route('/admin_login', methods=['POST'])
+def admin_login():
+    try:
+        data = request.json
+        username = data.get("username")
+        password = data.get("password")
+
+        if not username or not password:
+            return jsonify({"message": "❌ Username and password required.", "status": "error"}), 400
+
+        result = login_admin(username, password)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"message": f"An error occurred: {str(e)}", "status": "error"}), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+

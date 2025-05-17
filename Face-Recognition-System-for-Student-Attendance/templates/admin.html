@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <!-- Linking Admin CSS -->
+    <link
+      href="{{ url_for('static', filename='styles/admin.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Navigation Sidebar -->
+      <nav>
+        <ul>
+          <li>
+            <a href="javascript:location.reload();" class="logo">
+              <img
+                src="{{ url_for('static', filename='Files/Resources/amin_icon.png.jpg') }}"
+                alt="Admin Icon"
+              />
+              <span class="nav-item">Admin</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:location.reload();">
+              <i class="fas fa-menorah"></i>
+              <span class="nav-item">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/add_user">
+              <i class="fas fa-database"></i>
+              <span class="nav-item">Add Record</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/edit_user">
+              <i class="fas fa-edit"></i>
+              <span class="nav-item">Edit</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/admin_attendance_list">
+              <i class="fas fa-chart-bar"></i>
+              <span class="nav-item">Attendance Records</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin_login" class="logout">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="nav-item">Log out</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Section -->
+      <section class="main">
+        <div class="main-top">
+          <h1>Students Enrolled for Year 2023</h1>
+        </div>
+
+        <!-- User Cards -->
+        <div class="users">
+          {% for student in data %}
+          <div class="card">
+            {% if student['image_status'] == 'Image found' %}
+            <img
+              src="{{ url_for('static', filename='Files/Images/' ~ student['_id'] ~ '.png') }}"
+              alt="Student Profile Picture"
+            />
+            {% else %}
+            <p>No image available for {{ student['name'] }}</p>
+            {% endif %}
+            <!-- Student Details -->
+            <h4>{{ student['name'] }}</h4>
+            <p>{{ student['major'] }}</p>
+        
+            <!-- Attendance Details -->
+            <div class="per">
+              <table>
+                <tr>
+                  <td><span>{{ student['total_attendance'] }}</span></td>
+                  <td><span>{{ student['year'] }}</span></td>
+                </tr>
+                <tr>
+                  <td>Total Attendance</td>
+                  <td>Year</td>
+                </tr>
+              </table>
+            </div>
+        
+            <!-- Edit Button -->
+            <form method="POST" action="/admin/edit_user">
+              <button
+                class="edit_student"
+                type="submit"
+                name="edit_student"
+                value="{{ student['_id'] }}"
+              >
+                View More
+              </button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+        
+      </section>
+    </div>
+  </body>
+</html>

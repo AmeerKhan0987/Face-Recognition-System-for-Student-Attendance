@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Attendance Records</title>
+    <link
+        href="{{ url_for('static', filename='styles/admin.css') }}"
+        rel="stylesheet"
+        type="text/css"
+    />
+</head>
+<body>
+    <div class="container">
+        <section class="attendance">
+            <div class="attendance-list">
+                <button class="home_button" onclick="window.location.href='/'">
+                    Home
+                </button>
+                <h1>All Attendance Records</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Major</th>
+                            <th>Total Attendance</th>
+                            <th>Last Attendance Time</th>
+                            <th>Year</th>
+                            <th>Time Elapsed (in hrs.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if data %}
+                        <!-- {% for students in data %}
+                        <tr>
+                            <td>{{ students.studentInfo['_id'] }}</td>
+                            <td>{{ students.studentInfo['name'] }}</td>
+                            <td>{{ students.studentInfo['major'] }}</td>
+                            <td>{{ students.studentInfo['total_attendance'] }}</td>
+                            <td>{{ students.studentInfo['last_attendance_time'] }}</td>
+                            <td>{{ students.studentInfo['year'] }}</td>
+                            <td>{{ students.last_attendance_hours }}</td> 
+                        </tr>
+                    {% endfor %} -->
+                    
+                        {% for students in data %}
+                            <tr>
+                                <td>{{ students[0]['_id'] }}</td>   
+                                <td>{{ students[0]['name'] }}</td>
+                                <td>{{ students[0]['major'] }}</td>
+                                <td>{{ students[0]['total_attendance'] }}</td>
+                                <td>{{ students[0]['last_attendance_time'] }}</td>
+                                <td>{{ students[0]['year'] }}</td>
+                                <td>{{ students[2] // 3600 }}</td> 
+                                </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="7">No attendance records found.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "username": "AAAK",
+  "password": "7860514360@Aa",
+  "cluster": "cluster0.xcc80.mongodb.net",
+  "app_name": "Cluster0",
+  "database": "your_database_name",
+  "students_collection": "your_collection_name"
+}
