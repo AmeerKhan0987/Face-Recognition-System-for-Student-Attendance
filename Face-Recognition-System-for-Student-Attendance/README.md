@@ -27,8 +27,8 @@ Check out the installation guide video by clicking [HERE] add a video link
 ```
 
 - Next, install all the necessary modules and dependencies listed in the requirement.txt file. Keep in mind that some modules might be missing, which could result in an error but a simple google search will fix your problem.
-- Next, proceed to set up your Firebase account. Download the required credentials from Firebase and save them as **serviceAccountKey.json**.
-- Create a Realtime database in the firebase. This will be our main database. Copy the database link which will be at the top.
+- Next, proceed to set up your momgodb account. Download the required credentials from Firebase and save them as **serviceAccountKey.json**.
+- Create a Realtime database in the mogodb. This will be our main database. Copy the database link which will be at the top.
 - Paste it in where ever you see this tag: **"databaseURL": "<paste here>"** That will be 3 files:
 1. webapp.py
 2. initial_database.py
